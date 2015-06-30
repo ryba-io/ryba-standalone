@@ -1,0 +1,6 @@
+.*
+/log/*
+/node_modules
+/conf/user*
+/resources/cache/*
+!.gitignore

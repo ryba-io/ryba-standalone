@@ -1,0 +1,10 @@
+{
+  "name": "ryba-single",
+  "version": "0.0.0",
+  "dependencies": {
+    "coffee-script": "1.x",
+    "masson": "latest",
+    "ryba": "latest",
+    "ryba-repos": "0.0.1"
+  }
+}
