@@ -1,40 +1,84 @@
 
 module.exports =
-  security:
+  ssh:
+    banner:
+      target: '/etc/banner'
+      content: "Welcome to Hadoop!"
+    sshd_config:
+      PermitRootLogin: 'without-password'
+    private_key: """
+    -----BEGIN RSA PRIVATE KEY-----
+    MIIEogIBAAKCAQEArBDFt50aN9jfIJ629pRGIMA1fCMb9RyTHt9A+jx3FOsIOtJs
+    eaBIpv98drbFVURr+cUs/CrgGVk5k2NIeiz0bG4ONV5nTwx38z5CzqLb7UryZS3i
+    a/TS14fWOxvWTRR27R71ePX90G/ZIReKFeTrucw9y9Pl+xAzsmeblRwLBxv/SWBX
+    Uai2mHAZaejlG9dGkn9f2n+oPmbgk6krLMCjLhlNBnkdroBNSXGA9ewLPFF4y54Q
+    kBqmG3eLzCqAKAzwyJ5PpybtNGAWfN81gY/P5LBzC66WdtEzpwsYAv1wCioqggtg
+    xVZN2s0ajxQrCxahRkXstBI2IDcm2qUTxaDbUwIDAQABAoIBAFruOi7AvXxKBhCt
+    D6/bx/vC2AEUZM/yG+Wywhn8HkpVsvGzBlR4Wiy208XA7SQUlqNWimFxHyEGQCEd
+    1M2MOFedCbE2hI4H3tQTUSb2dhc/Bj5mM0QuC8aPKK3wFh6B9B93vu3/wfSHR03v
+    rK/JXLHBt96hyuYVN9zOWDBCs6k7SdQ2BcsQLiPg6feTsZelJDuO+DO65kKLMiz3
+    mNPThErklRaKovNk47LSYakk6gsJXrpG6JWQ6nwsRenwplDwZ8Zs9mlRi7f3nChM
+    3I1WlISN8y2kcQBQ94YZKk8wzH/lzmxsabcLa5ETNubxQ6ThDu1oYUIIUsQyNPm+
+    DkW0VwECgYEA5MttelspKexWS39Y3sQYvZ/v8VZBQl4tRbpUWWc+PNEtcEwOBza/
+    H4jBWYd2eWKTApJT1st58E4b34Mv88nQVElLb3sE7uJMkihPyNpABGbCvr63hDYw
+    PyL53nKaPelY/aDnL0F8LmREfdKw/uy6+UChgkPfdo2VVk1oyvsZaRMCgYEAwIZ+
+    lCmeXQ4mU6uxO+ChhDn7zw9rR5qlCyfJiLPe2lV20vaHV5ZfKIWGegsVJSpFr2ST
+    5ghh+FVIneoNRtTHEKwNWCK7I6qeF+WAaci+KsLQigJQHsw58n9cdA7wHHc475n/
+    pf7efoPcvk6qYOS2mpDgC87m+o3C4Dyspqp9TMECgYA4/ed+dBjT5Zg1ZDp5+zUC
+    f0Wgw1CsPJNgbCK4xnv9YEnGUFuqNlvzefhX2eOMJx7hpBuYRMVSM9LDoYUfYCUx
+    6bQNyAIZk2tpePsu2BbcQdC+/PjvySPJhmfhnoCHbYoKW7tazSAm2jkpcoM+bS/C
+    CPRyY3/Voz0Q62VwMo5I2wKBgB4mMbZUGieqapgZwASHdeO2DNftKzioYAYyMd5F
+    hLWeQqBg2Or/cmFvH5MHH0WVrBn+Xybb0zPHbzrDh1a7RX035FMUBUhdlKpbV1O5
+    iwY5Qd0K5a8c/koaZckK+dELXpAvBpjhI8ieL7hhq07HIk1sOJnAye0cvBLPjZ3/
+    /uVBAoGAVAs6tFpS0pFlxmg4tfGEm7/aP6FhyBHNhv2QGluw8vv/XVMzUItxGIef
+    HcSMWBm08IJMRJLgmoo1cuQv6hBui7JpDeZk/20qoF2oZW9lJ9fdRObJqi61wufP
+    BNiriqexq/eTy2uF9RCCjLItWxUscVMlVt4V65HLkCF5WxCQw+o=
+    -----END RSA PRIVATE KEY-----
+    """
+    public_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsEMW3nRo32N8gnrb2lEYgwDV8Ixv1HJMe30D6PHcU6wg60mx5oEim/3x2tsVVRGv5xSz8KuAZWTmTY0h6LPRsbg41XmdPDHfzPkLOotvtSvJlLeJr9NLXh9Y7G9ZNFHbtHvV49f3Qb9khF4oV5Ou5zD3L0+X7EDOyZ5uVHAsHG/9JYFdRqLaYcBlp6OUb10aSf1/af6g+ZuCTqSsswKMuGU0GeR2ugE1JcYD17As8UXjLnhCQGqYbd4vMKoAoDPDInk+nJu00YBZ83zWBj8/ksHMLrpZ20TOnCxgC/XAKKiqCC2DFVk3azRqPFCsLFqFGRey0EjYgNybapRPFoNtT Ryba Hadoop'
+    root:
+      username: 'vagrant'
+      password: 'vagrant'
+  mecano:
+    domain: true
+    # cache: false
+    cache_dir: "#{__dirname}/../../ryba-cluster/cache"
+    log_serializer: true
+  system:
     selinux: false
     limits: {}
+    users:
+      'root':
+        authorized_keys: []
   network:
     hosts_auto: true
     hosts:
       '127.0.0.1': 'localhost localhost.localdomain localhost4 localhost4.localdomain4'
-      # '10.10.10.10': 'repos.ryba ryba'
-    # resolv: """
-    #   search ryba
-    #   nameserver 10.0.2.3
-    #   """
+    resolv: """
+      search ryba
+      nameserver 10.10.10.13
+      nameserver 10.0.2.3
+      """
   iptables:
-    action: 'stop'
-    startup: false
-    log: true
+    action: 'STOP'
     rules: [
-      # { chain: 'INPUT', jump: 'ACCEPT', source: "10.10.10.0/24", comment: 'Local Network' }
+      { chain: 'INPUT', jump: 'ACCEPT', source: "10.10.10.0/24", comment: 'Local Network' }
     ]
-  ssh:
-    banner:
-      destination: '/etc/banner'
-      content: "Welcome to Hadoop!"
-    sshd_config:
-      PermitRootLogin: 'without-password'
-  users:
-    'root':
-      authorized_keys:  []
+  bind_server:
+    zones: [
+      "#{__dirname}/zones/ryba"
+      "#{__dirname}/zones/10.10.10.in-addr.arpa"
+    ]
   yum:
-    packages: "tree": true, "git": true, "htop": true
+    packages: 'tree': true, 'git': true, 'htop': true, 'vim': true, 'bash-completion': true, 'unzip':true
   mysql:
     server:
       current_password: ''
       password: 'test123'
-      my_cnf: mysqld: innodb_file_per_table: '1'
+  postgres:
+    server:
+      password: 'test123'
+      user: 'root'
   openldap_server:
     suffix: 'dc=ryba'
     root_dn: 'cn=Manager,dc=ryba'
@@ -50,13 +94,14 @@ module.exports =
     tls_cert_file: "#{__dirname}/certs/hadoop_cert.pem"
     tls_key_file: "#{__dirname}/certs/hadoop_key.pem"
   openldap_client:
-    certificates: [
+    certificates: [ # Same as "sssd.certificates"
       "#{__dirname}/certs/hadoop_cert.pem"
     ]
+    config: {}
   openldap_server_krb5:
     manager_dn: 'cn=Manager,dc=ryba' # Manager must have write access to "kerberos_dn"
     manager_password: 'test'
-    # kerberos_dn: 'ou=kerberos,dc=ryba'
+    kerberos_dn: 'cn=kerberoscontainer,dc=ryba'
     # groups_dn: 'cn=krbadmin,ou=groups,dc=ryba'
     # users_dn: 'cn=krbadmin,ou=users,dc=ryba'
     krbadmin_user:
@@ -66,12 +111,16 @@ module.exports =
     etc_krb5_conf:
       libdefaults:
         default_realm: 'HADOOP_SINGLE.RYBA'
-      realms:
-        'HADOOP_SINGLE.RYBA':
-          default_domain: 'ryba'
+      # realms:
+      #   'HADOOP_SINGLE.RYBA':
+      #     default_domain: 'ryba'
+      #   'USERS.RYBA':
+      #     default_domain: 'ryba'
       domain_realm:
         # '.ryba': 'HADOOP_SINGLE.RYBA'
         'ryba': 'HADOOP_SINGLE.RYBA'
+    kdc_conf:
+      realms: {}
   sssd:
     # test_user: 'ryba'
     force_check: false
@@ -80,6 +129,7 @@ module.exports =
     ]
     config:
       'domain/hadoop':
+        'debug_level': '1'
         'cache_credentials' : 'True'
         'ldap_search_base' : 'ou=users,dc=ryba'
         'ldap_group_search_base' : 'ou=groups,dc=ryba'
@@ -88,88 +138,124 @@ module.exports =
         'chpass_provider' : 'ldap'
         'ldap_uri' : 'ldaps://hadoop.ryba:636'
         'ldap_tls_cacertdir' : '/etc/openldap/cacerts'
+        # 'ldap_default_bind_dn' : 'cn=nssproxy,dc=ryba'
         'ldap_default_bind_dn' : 'cn=Manager,dc=ryba'
         'ldap_default_authtok' : 'test'
         'ldap_id_use_start_tls' : 'True'
+      'domain/users':
+        'debug_level': '1'
+        'cache_credentials' : 'True'
+        'ldap_search_base' : 'ou=users,dc=ryba'
+        'ldap_group_search_base' : 'ou=groups,dc=ryba'
+        'id_provider' : 'ldap'
+        'auth_provider' : 'ldap'
+        'chpass_provider' : 'ldap'
+        'ldap_uri' : 'ldaps://hadoop.ryba:636'
+        'ldap_tls_cacertdir' : '/etc/openldap/cacerts'
+        # 'ldap_default_bind_dn' : 'cn=nssproxy,dc=ryba'
+        'ldap_default_bind_dn' : 'cn=Manager,dc=ryba'
+        'ldap_default_authtok' : 'test'
+        'ldap_id_use_start_tls' : 'False'
       'sssd':
-        'domains' : 'hadoop'
-  java: {}
-    # java_home: '/usr/java/default'
-    # jdk:
-    #   version: '1.7.0_60'
-    #   location: "#{__dirname}/../shared/java/jdk-7u60-linux-x64.tar.gz"
-    # jce_local_policy: "#{__dirname}/../shared/java/jce_policy-7/local_policy.jar"
-    # jce_us_export_policy: "#{__dirname}/../shared/java/jce_policy-7/US_export_policy.jar"
+        'domains' : 'hadoop,users'
   ryba:
     clean_logs: true
     force_check: false
-    # static_host: false
+    check_hdfs_fsck: false
     security: 'kerberos'
     realm: 'HADOOP_SINGLE.RYBA'
     nameservice: 'torval'
-    krb5_user: password: 'test123' # User used for testing
+    krb5_user: # User used for testing
+      password: 'test123'
+      password_sync: true
     ssl:
       'cacert': "#{__dirname}/certs/cacert.pem"
-      'cert': "#{__dirname}/certs/hadoop_cert.pem"
-      'key': "#{__dirname}/certs/hadoop_key.pem"
+    #   'cert': "#{__dirname}/certs/hadoop_cert.pem"
+    #   'key': "#{__dirname}/certs/hadoop_key.pem"
+    ambari:
+      repo: "#{__dirname}/resources/repos/ambari-2.0.0.repo"
+    mongodb:
+      admin:
+        name: 'admin'
+        password: 'admin123'
+      root:
+        name: 'root_admin'
+        password: 'root123'
+    ssh_fencing:
+      private_key: "#{__dirname}/hdfs_keys/id_rsa"
+      public_key: "#{__dirname}/hdfs_keys/id_rsa.pub"
     hadoop_opts: '-Djava.net.preferIPv4Stack=true -Dsun.security.krb5.debug=false'
     core_site:
-      'hadoop.proxyuser.hcat.groups': '*'
-      'hadoop.proxyuser.hcat.hosts': '*'
-      'hadoop.proxyuser.hue.hosts': '*'
-      'hadoop.proxyuser.hue.groups': '*'
-      'hadoop.proxyuser.flume.groups': '*'
-      'hadoop.proxyuser.flume.hosts': '*'
-      'hadoop.security.auth_to_local': """
-      
-            RULE:[2:$1@$0]([rn]m@.*)s/.*/yarn/
-            RULE:[2:$1@$0](ats@.*)s/.*/yarn/
-            RULE:[2:$1@$0](jhs@.*)s/.*/mapred/
-            RULE:[2:$1@$0]([nd]n@.*)s/.*/hdfs/
-            RULE:[2:$1@$0](hm@.*)s/.*/hbase/
-            RULE:[2:$1@$0](rs@.*)s/.*/hbase/
-            RULE:[1:$1@$0](^.*@HADOOP\\.ADALTAS\\.COM$)s/^(.*)@HADOOP\\.ADALTAS\\.COM$/$1/g
-            RULE:[2:$1@$0](^.*@HADOOP\\.ADALTAS\\.COM$)s/^(.*)@HADOOP\\.ADALTAS\\.COM$/$1/g
-            DEFAULT
-
-      """
+      'hadoop.ssl.exclude.cipher.suites': 'SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA,SSL_RSA_EXPORT_WITH_DES40_CBC_SHA,SSL_RSA_EXPORT_WITH_RC4_40_MD5,TLS_DHE_RSA_WITH_AES_128_CBC_SHA,TLS_DHE_RSA_WITH_AES_256_CBC_SHA'
+      #'hadoop.proxyuser.flume.groups': '*'
+      #'hadoop.proxyuser.flume.hosts': '*'
+      # 'hadoop.security.auth_to_local': """
+      #
+      #       RULE:[2:$1@$0]([rn]m@.*)s/.*/yarn/
+      #       RULE:[2:$1@$0](ats@.*)s/.*/yarn/
+      #       RULE:[2:$1@$0](jhs@.*)s/.*/mapred/
+      #       RULE:[2:$1@$0]([nd]n@.*)s/.*/hdfs/
+      #       RULE:[2:$1@$0](hm@.*)s/.*/hbase/
+      #       RULE:[2:$1@$0](rs@.*)s/.*/hbase/
+      #       RULE:[2:$1@$0](opentsdb@.*)s/.*/hbase/
+      #       RULE:[1:$1@$0](^.*@HADOOP\\.RYBA$)s/^(.*)@HADOOP\\.RYBA$/$1/g
+      #       RULE:[2:$1@$0](^.*@HADOOP\\.RYBA$)s/^(.*)@HADOOP\\.RYBA$/$1/g
+      #       RULE:[1:$1@$0](^.*@USERS\\.RYBA$)s/^(.*)@USERS\\.RYBA$/$1/g
+      #       RULE:[2:$1@$0](^.*@USERS\\.RYBA$)s/^(.*)@USERS\\.RYBA$/$1/g
+      #       DEFAULT
+      # """
+    hadoop_metrics:
+      '*.sink.file.class': 'org.apache.hadoop.metrics2.sink.FileSink'
     hadoop_heap: '512'
     hadoop_namenode_init_heap: '-Xms512m'
     hdfs:
-      krb5_user: password: 'hdfs123'
+      nn: 
+        heapsize: '256m'
+      user: limits:
+        nproc: 16384
+        nofile: 16384
+      krb5_user:
+        password: 'hdfs123'
+        password_sync: true
       sysctl:
         'vm.swappiness': 0 # Default to 60
         'vm.overcommit_memory': 1 # Default to 0
         'vm.overcommit_ratio': 100 # Default to 50
         'net.core.somaxconn': 1024 # Default to 128
+        'net.ipv4.ip_local_port_range': '10000 65000' # Default is "1024 4999"
       site:
         'dfs.namenode.safemode.extension': 1000 # "1s", default to "30s"
-    ssh_fencing:
-      private_key: "#{__dirname}/hdfs_keys/id_rsa"
-      public_key: "#{__dirname}/hdfs_keys/id_rsa.pub"
-    zkfc_password: 'hdfs123'
+    zkfc:
+      digest:
+        name: 'zkfc'
+        password: 'zkfc123'
     yarn:
+      user: limits:
+        nproc: 16384
+        nofile: 16384
       opts: '-Dsun.net.spi.nameservice.provider.1=sun,dns' # HADOOP_JAAS_DEBUG=true
-      site: {}
-        # 'yarn.nodemanager.local-dirs': ['/data/1/yarn/local', '/data/2/yarn/local', '/data/3/yarn/local', '/data/4/yarn/local']
-        # 'yarn.nodemanager.log-dirs': ['/data/1/yarn/logs', '/data/2/yarn/logs', '/data/3/yarn/logs', '/data/4/yarn/logs']
-        # 'yarn.scheduler.maximum-allocation-mb': '1800' # Should not exceed vm memory or no worker will be able to get a container
-        # 'yarn.scheduler.minimum-allocation-mb': '1000' # Avoid "$host doesn't satisfy minimum allocations" with small vms
+      site:
+        'yarn.resourcemanager.recovery.enabled': 'true'
+        'yarn.nodemanager.linux-container-executor.cgroups.mount': 'false'
     capacity_scheduler:
       'yarn.scheduler.capacity.maximum-am-resource-percent': '.5'
     mapred:
+      user: limits:
+        nproc: 16384
+        nofile: 16384
       site:
         'mapreduce.job.counters.max': '10000'
         'mapreduce.job.counters.limit': '10000'
     hive:
-      site:
-        'javax.jdo.option.ConnectionDriverName': 'com.mysql.jdbc.Driver'
-        'javax.jdo.option.ConnectionUserName': 'hive'
-        'javax.jdo.option.ConnectionPassword': 'hive123'
-    oozie:
-      site:
-        'oozie.service.ProxyUserService.proxyuser.hue.hosts': '*'
-        'oozie.service.ProxyUserService.proxyuser.hue.groups': '*'
+      hcatalog:
+          db: engine: 'mysql'
+          site:
+            'datanucleus.autoCreateTables': 'false'
+            'datanucleus.fixedDatastore': 'true'
+            'datanucleus.autoCreateSchema': 'false'
+      user: limits:
+        nproc: 16384
+        nofile: 16384
     hue:
       ini:
         desktop:
@@ -181,11 +267,35 @@ module.exports =
         certificate: "#{__dirname}/certs/hadoop_cert.pem"
         private_key: "#{__dirname}/certs/hadoop_key.pem"
         client_ca: "#{__dirname}/certs/cacert.pem"
+    hue_docker:
+      version: '3.12'
+      ini:
+        desktop:
+          smtp: host: ''
+          database:
+            engine: 'mysql'
+            password: 'hue123'
+      ssl:
+        client_ca: "#{__dirname}/certs/cacert.pem"
     sqoop: libs: []
     hbase:
-      # master_opts: '-Xms512m -Xmx512m'
+      user: limits:
+        nproc: 16384
+        nofile: 16384
+      rs: opts: '-Xmx512m'
       admin:
         password: 'hbase123'
+      metrics:
+        '*.sink.file.class': 'org.apache.hadoop.metrics2.sink.FileSink'
+    kafka:
+      broker:
+        heapsize: 256
+        config:
+          'zookeeper.set.acl': 'true'
+      admin:
+        principal: 'kafka'
+        password: 'kafka123'
+    opentsdb: version: '2.2.0'
     nagios:
       users:
         nagiosadmin:
@@ -200,20 +310,28 @@ module.exports =
         admins:
           alias: 'Nagios Administrators'
           members: ['nagiosadmin','guest']
-      azkaban:
-        web_server: 'https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-web-server-2.5.0.tar.gz'
-        executor_server: 'https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-executor-server-2.5.0.tar.gz'
-        mysql_scripts: 'https://s3.amazonaws.com/azkaban2/azkaban2/2.5.0/azkaban-sql-script-2.5.0.tar.gz'
-        hdfs_browser: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-hdfs-viewer-2.5.0.tar.gz'
-        jobtype: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-jobtype-2.5.0.tar.gz'
-        hadoop_security_manager: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-hadoopsecuritymanager-2.5.0.tar.gz'
-        job_summary: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-jobsummary-2.5.0.tar.gz'
-        pig_visualizer: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-pigvisualizer-2.5.0.tar.gz'
-        reportal: 'https://s3.amazonaws.com/azkaban2/azkaban-plugins/2.5.0/azkaban-reportal-2.5.0.tar.gz'
-
-
-
-
-
-
-
+    nifi:
+      config:
+        properties:
+          'nifi.security.identity.mapping.pattern.dn': '^EMAILADDRESS=(.*?), CN=(.*?),(.*)$'
+          'nifi.security.identity.mapping.value.dn': '$2'
+    druid:
+      broker: jvm:
+        xms: '128m'
+        xmx: '512m'
+      coordinator: jvm:
+        xms: '128m' # Default is 3g
+        xmx: '512m' # Default is 3g
+      historical: jvm:
+        xms: '128m' # Default is 8g
+        xmx: '512m' # Default is 8g
+      overlord: jvm:
+        xms: '128m' # Default is 3g
+        xmx: '512m' # Default is 3g
+    ranger:
+      admin:
+        solr_type: 'cloud_docker'
+    solr:
+      cloud_docker:
+        tmp_dir: '/var/lib/docker/images'
+        version: '6.3.0'
